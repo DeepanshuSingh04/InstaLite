@@ -32,14 +32,6 @@ main{
             padding-block: 1rem;
         }
 
-        button{
-            background-color: rgba(222, 10, 10, 0.836);
-            color: whitesmoke;
-            cursor: pointer;
-            &:active{
-                transform: scale(0.98);
-            }
-        }
     }
 
     .toggleAuthForm{

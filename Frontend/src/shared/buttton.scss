@@ -1,0 +1,16 @@
+button{
+    cursor: pointer;
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &.primary-button{
+    background-color: rgba(222, 10, 10, 0.836);
+    color: whitesmoke;
+    }
+
+    &:active{
+    transform: scale(0.9);
+    }
+}
