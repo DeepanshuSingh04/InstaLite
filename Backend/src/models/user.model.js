@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "Password is required"]
+        required: [true, "Password is required"],
+        select: false
     },
     bio: String,
     profileImage: {          // ab profile me hame ek default image bhi to lagani padegi to wo abhi ye laga di

@@ -1,0 +1,200 @@
+:root {
+    --ink: #0F0D0C;
+    --surface: #1B1613;
+    --border: #332A22;
+    --cream: #F5EEE2;
+    --muted: #9C8D7A;
+    --safelight: #C1442E;
+    --gold: #D4A857;
+}
+
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-2%, -3%); }
+    30% { transform: translate(3%, 2%); }
+    50% { transform: translate(-3%, 3%); }
+    70% { transform: translate(2%, -2%); }
+    90% { transform: translate(-1%, 2%); }
+}
+
+@keyframes shutterPunch {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(0.72); }
+    70%  { transform: scale(1.18); }
+    100% { transform: scale(1); }
+}
+
+.feed-page {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse 800px 500px at 50% -10%, rgba(193, 68, 46, 0.1), transparent),
+        var(--ink);
+    padding-block: 3rem;
+    padding-inline: 1rem;
+    font-family: 'Inter', sans-serif;
+
+    .feed {
+        max-width: 470px;
+        width: 100%;
+    }
+
+    .posts {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2.25rem;
+    }
+
+    .post {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+        transition: border-color 0.25s ease;
+
+        &:hover {
+            border-color: #4a3c30;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: grain 0.6s steps(2) infinite;
+            mix-blend-mode: overlay;
+            z-index: 2;
+        }
+
+        .user {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+            .img-wrapper {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5px;
+    flex-shrink: 0;
+    // smooth flowing gradient, Instagram jaisa
+    background: conic-gradient(
+        from 220deg,
+        var(--gold) 0%,
+        var(--safelight) 25%,
+        #8b2f6b 50%,
+        var(--safelight) 75%,
+        var(--gold) 100%
+    );
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--surface);
+    }
+}
+
+            p {
+                color: var(--cream);
+                font-family: 'Fraunces', serif;
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+            }
+        }
+
+        > img {
+            position: relative;
+            width: 100%;
+            max-height: 560px;
+            object-fit: contain;
+            background-color: #000;
+            display: block;
+            filter: saturate(1.05) contrast(1.02);
+        }
+
+        .icons {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.1rem 0.5rem;
+
+            .left { display: flex; gap: 1.25rem; }
+            .right { display: flex; gap: 1.25rem; }
+
+            .like{
+                color: red;
+            }
+            
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+                color: var(--cream);
+                transition: color 0.2s ease;
+            }
+
+            button {
+                background: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                padding: 0;
+
+                &:hover svg {
+                    color: var(--safelight);
+                }
+
+                &:active svg {
+                    animation: shutterPunch 0.35s ease;
+                }
+            }
+
+            .left button.liked svg {
+                color: var(--safelight);
+                fill: var(--safelight);
+            }
+        }
+
+        .bottom {
+            position: relative;
+            z-index: 3;
+            padding: 0.4rem 1.1rem 1.25rem;
+
+            .caption {
+                color: var(--muted);
+                font-size: 0.92rem;
+                line-height: 1.55;
+
+                &::before {
+                    content: attr(data-username) "  ";
+                    font-family: 'Fraunces', serif;
+                    font-weight: 600;
+                    color: var(--cream);
+                }
+            }
+        }
+    }
+}
